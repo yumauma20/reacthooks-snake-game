@@ -32,6 +32,7 @@ function App() {
     return unsubscribe /* return部分はコンポーネントが削除されるタイミングで実行される */
   },[])
 
+  //初回レンタリング時とtick(依存変数の配列)が変更されるときにレンタリングされる際に実行される
   useEffect(() => {
     if(!position) {
       return
