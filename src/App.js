@@ -102,7 +102,7 @@ function App() {
 
     setStatus(GameStatus.init)
     setPosition(initialPosition)
-    setDirection(Direction.Up)
+    setDirection(Direction.up)
     setFields(initFields(35, initialPosition))
   }
 
