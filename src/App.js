@@ -23,6 +23,13 @@ const Direction = Object.freeze({
   down: 'down'
 })
 
+const OppositeDirection = Object.freeze({
+  up: 'down',
+  right: 'left',
+  left: 'right',
+  down: 'up'
+})
+
 let timer = undefined
 
 const unsubscribe = () => {
@@ -79,9 +86,9 @@ function App() {
       setTick(tick => tick + 1)
     }, defaultInterval)
 
-    setDirection(Direction.Up)
     setStatus(GameStatus.init)
     setPosition(initialPosition)
+    setDirection(Direction.Up)
     setFields(initFields(35, initialPosition))
   }
 
@@ -102,6 +109,18 @@ function App() {
     return true
   }
 
+  const onChangeDirection = (newDirection) => {
+    if(status !== GameStatus.playing) {
+      return direction
+    }
+    if(OppositeDirection[direction] === newDirection) {
+      return
+    }
+    setDirection(newDirection)
+  }
+
+  console.log('direction', direction)
+
   return (
     <div className="App">
       <header className="header">
@@ -115,7 +134,7 @@ function App() {
       </main>
       <footer className="footer">
         <Button status={status} onStart={onStart} onRestart={onRestart} />
-        <ManipulationPanel />
+        <ManipulationPanel onChange={onChangeDirection}/>
       </footer>
     </div>
   );
