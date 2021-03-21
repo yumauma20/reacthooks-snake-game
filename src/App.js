@@ -67,13 +67,13 @@ const isCollision = (fieldSize, position) => {
 
 function App() {
   const [fields, setFields] = useState(initialValues)
-  const [position, setPosition] = useState()
+  const [body, setBody] = useState([])
   const [status, setStatus] = useState(GameStatus.init)
   const [direction, setDirection] = useState(Direction.up)
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
-    setPosition(initialPosition)
+    setBody(initialPosition)
     //ゲーム中の時間を管理する
     timer = setInterval(() => {
       setTick(tick => tick + 1)
@@ -83,7 +83,7 @@ function App() {
 
   //初回レンタリング時とtick(依存変数の配列)が変更されるときにレンタリングされる際に実行される
   useEffect(() => {
-    if(!position || status !== GameStatus.playing) {
+    if(!body || status !== GameStatus.playing) {
       return
     }
     
@@ -101,13 +101,13 @@ function App() {
     }, defaultInterval)
 
     setStatus(GameStatus.init)
-    setPosition(initialPosition)
+    setBody(initialPosition)
     setDirection(Direction.up)
     setFields(initFields(35, initialPosition))
   }
 
   const handleMoving = () => {
-    const { x, y } = position
+    const { x, y } = body[0]
     const delta = Delta[direction]
     const newPosition = {
       x: x + delta.x,
@@ -121,7 +121,7 @@ function App() {
 
     fields[y][x] = ""
     fields[newPosition.y][newPosition.x] = 'snake'
-    setPosition(newPosition)
+    setBody(newPosition)
     setFields(fields)
     
     return true
