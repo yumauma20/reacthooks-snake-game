@@ -119,9 +119,15 @@ function App() {
       return false
     }
 
-    fields[y][x] = ""
+    const newBody = [...body] /* useState以外での更新をするのはタブーなのでスプレッド構文でコピー */
+    if(fields[newPosition.y][newPosition.x] !== 'food') {
+      const removingTrack = newBody.pop()
+      fields[removingTrack.y][removingTrack.x] = ''
+    }
     fields[newPosition.y][newPosition.x] = 'snake'
-    setBody([newPosition])
+    newBody.unshift(newPosition)
+
+    setBody(newBody)
     setFields(fields)
     
     return true
