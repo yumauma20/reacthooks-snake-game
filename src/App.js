@@ -74,6 +74,7 @@ function App() {
   const [body, setBody] = useState([])
   const [status, setStatus] = useState(GameStatus.init)
   const [direction, setDirection] = useState(Direction.up)
+  const [difficulty, setDifficulty] = useState(3)
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
@@ -152,6 +153,16 @@ function App() {
     setDirection(newDirection)
   },[direction, status])
 
+  const onChangeDifficulty = useCallback((difficulty) => {
+    if(status !== GameStatus.init) {
+      return
+    }
+    if(difficulty < 1 || difficulty > difficulty.length) {
+      return
+    }
+    setDifficulty(difficulty)
+  },[status, difficulty])
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       const newDirection = DirectionKeyCodeMap[e.keyCode]
@@ -172,7 +183,11 @@ function App() {
         <div className="title-container">
           <h1 className="title">Snake Game</h1>
         </div>
-        <Navigation length={body.length} />
+        <Navigation
+          length={body.length}
+          difficulty={difficulty}
+          onChangeDifficulty={onChangeDifficulty}
+        />
       </header>
       <main className="main">
         <Field fields={fields}/>
