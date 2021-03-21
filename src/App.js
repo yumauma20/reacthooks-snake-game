@@ -73,7 +73,7 @@ function App() {
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
-    setBody(initialPosition)
+    setBody([initialPosition])
     //ゲーム中の時間を管理する
     timer = setInterval(() => {
       setTick(tick => tick + 1)
@@ -101,7 +101,7 @@ function App() {
     }, defaultInterval)
 
     setStatus(GameStatus.init)
-    setBody(initialPosition)
+    setBody([initialPosition])
     setDirection(Direction.up)
     setFields(initFields(35, initialPosition))
   }
@@ -121,7 +121,7 @@ function App() {
 
     fields[y][x] = ""
     fields[newPosition.y][newPosition.x] = 'snake'
-    setBody(newPosition)
+    setBody([newPosition])
     setFields(fields)
     
     return true
