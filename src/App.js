@@ -114,6 +114,7 @@ function App() {
     setStatus(GameStatus.init)
     setBody([initialPosition])
     setDirection(Direction.up)
+    setDifficulty(defaultDifficulty)
     setFields(initFields(35, initialPosition))
   }
 
