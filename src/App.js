@@ -3,7 +3,7 @@ import Navigation from './components/Navigation';
 import Field from './components/Field';
 import Button from './components/Button';
 import ManipulationPanel from './components/ManipulationPanel';
-import { initFields } from './utils';
+import { initFields, getFoodPosition } from './utils';
 
 const initialPosition = {x : 17, y : 17}
 const initialValues = initFields(35, initialPosition)
@@ -123,6 +123,9 @@ function App() {
     if(fields[newPosition.y][newPosition.x] !== 'food') {
       const removingTrack = newBody.pop()
       fields[removingTrack.y][removingTrack.x] = ''
+    } else {
+      const food = getFoodPosition(fields.length, [...newBody, newPosition])
+      fields[food.y][food.x] = 'food'
     }
     fields[newPosition.y][newPosition.x] = 'snake'
     newBody.unshift(newPosition)
